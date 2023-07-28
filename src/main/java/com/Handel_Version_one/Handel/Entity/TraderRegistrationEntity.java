@@ -3,8 +3,8 @@ package com.Handel_Version_one.Handel.Entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name="Corporate_Registration")
-public class RegistrationEntity {
+@Table(name="Trader_Registration")
+public class TraderRegistrationEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,10 +35,10 @@ public class RegistrationEntity {
     @Column(name="Password")
     private String password;
 
-    public RegistrationEntity() {
+    public TraderRegistrationEntity() {
     }
 
-    public RegistrationEntity(int id, String entityName, String iecCode, String gstCertificates, String financialCertificates, String userName, Number mobileNumber, String emailId, String beneficiary, String accountNumber, String swiftCode, String password) {
+    public TraderRegistrationEntity(int id, String entityName, String iecCode, String gstCertificates, String financialCertificates, String userName, Number mobileNumber, String emailId, String beneficiary, String accountNumber, String swiftCode, String password) {
         this.id = id;
         this.entityName = entityName;
         this.iecCode = iecCode;
@@ -149,5 +149,6 @@ public class RegistrationEntity {
         this.password = password;
     }
 }
+
 
 
