@@ -11,6 +11,8 @@ public class InternationalMaterialEntity {
     @Column(name="International_Material_Id")
     private Long internationalMaterialId;
 
+
+
     @Column(name="Material_Name")
     private String materialName;
 

@@ -2,17 +2,13 @@ package com.example.jwtProject.Service;
 
 import com.example.jwtProject.Entity.DomesticMaterialEntity;
 import com.example.jwtProject.Entity.InternationalMaterialEntity;
-import com.example.jwtProject.Entity.RegistrationEntity;
 import com.example.jwtProject.Model.DomesticModel;
 import com.example.jwtProject.Model.InternationalModel;
-import com.example.jwtProject.Model.JwtModel;
 import com.example.jwtProject.Repository.DomesticRepo;
 import com.example.jwtProject.Repository.InternationalRepo;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 
 @Service
 public class MaterialService {
@@ -20,6 +16,8 @@ public class MaterialService {
     public DomesticRepo domesticRepo;
     @Autowired
     public InternationalRepo internationalRepo;
+
+    // API for creating or updating a domestic entry
     public DomesticMaterialEntity createDomestic(DomesticModel domesticModel) {
         Long domesticMaterialId = domesticModel.getDomesticMaterialId();
 
@@ -46,6 +44,8 @@ public class MaterialService {
         }
     }
 
+
+    // API for creating or updating a international entry
     public InternationalMaterialEntity createInternational(InternationalModel internationalModel) {
         Long internationalId = internationalModel.getInternationalMaterialId();
 

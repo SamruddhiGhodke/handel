@@ -14,12 +14,16 @@ public class JwtModel {
     private String gstCertificates;
     private String financialCertificates;
     private String userName;
-    private Number mobileNumber;
+    private Long mobileNumber;
     private String beneficiary;
     private String accountNumber;
     private String swiftCode;
     private String emailId;
     private String password;
+    private Long domesticMaterialId;
+    private Long internationalMaterialId;
+    private String gstCertificateName;
+    private String financialName;
 
     public Long getId() {
         return id;
@@ -69,11 +73,11 @@ public class JwtModel {
         this.userName = userName;
     }
 
-    public Number getMobileNumber() {
+    public Long getMobileNumber() {
         return mobileNumber;
     }
 
-    public void setMobileNumber(Number mobileNumber) {
+    public void setMobileNumber(Long mobileNumber) {
         this.mobileNumber = mobileNumber;
     }
 
@@ -115,5 +119,37 @@ public class JwtModel {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Long getDomesticMaterialId() {
+        return domesticMaterialId;
+    }
+
+    public void setDomesticMaterialId(Long domesticMaterialId) {
+        this.domesticMaterialId = domesticMaterialId;
+    }
+
+    public Long getInternationalMaterialId() {
+        return internationalMaterialId;
+    }
+
+    public void setInternationalMaterialId(Long internationalMaterialId) {
+        this.internationalMaterialId = internationalMaterialId;
+    }
+
+    public String getGstCertificateName() {
+        return gstCertificateName;
+    }
+
+    public void setGstCertificateName(String gstCertificateName) {
+        this.gstCertificateName = gstCertificateName;
+    }
+
+    public String getFinancialName() {
+        return financialName;
+    }
+
+    public void setFinancialName(String financialName) {
+        this.financialName = financialName;
     }
 }

@@ -16,6 +16,12 @@ public class RegistrationEntity implements UserDetails {
     @Column(name="corporate_id")
     private Long id;
 
+    @Column(name="Domestic_Material_Id")
+    private Long domesticMaterialId;
+
+    @Column(name="International_Material_Id")
+    private Long internationalMaterialId;
+
     @Column(name="entityName")
     private String entityName;
     @Column(name="iecCode")
@@ -27,7 +33,7 @@ public class RegistrationEntity implements UserDetails {
     @Column(name="userName")
     private String userName;
     @Column(name="mobileNumber")
-    private Number mobileNumber;
+    private Long mobileNumber;
     @Column(name="emailId")
     private String emailId;
     @Column(name="beneficiary")
@@ -39,6 +45,14 @@ public class RegistrationEntity implements UserDetails {
 
     @Column(name="Password")
     private String password;
+
+    @Column(name="gstCertificateName")
+    private String gstCertificateName;
+
+    @Column(name="financialName")
+    private String financialName;
+
+
 
     public RegistrationEntity() {
     }
@@ -91,11 +105,11 @@ public class RegistrationEntity implements UserDetails {
         this.userName = userName;
     }
 
-    public Number getMobileNumber() {
+    public Long getMobileNumber() {
         return mobileNumber;
     }
 
-    public void setMobileNumber(Number mobileNumber) {
+    public void setMobileNumber(Long mobileNumber) {
         this.mobileNumber = mobileNumber;
     }
 
@@ -107,8 +121,8 @@ public class RegistrationEntity implements UserDetails {
         this.emailId = emailId;
     }
 
-    public String getBeneficiary() {
-        return beneficiary;
+    public String getBeneficiary(String beneficiary) {
+        return this.beneficiary;
     }
 
     public void setBeneficiary(String beneficiary) {
@@ -129,6 +143,26 @@ public class RegistrationEntity implements UserDetails {
 
     public void setSwiftCode(String swiftCode) {
         this.swiftCode = swiftCode;
+    }
+
+    public String getBeneficiary() {
+        return beneficiary;
+    }
+
+    public String getGstCertificateName() {
+        return gstCertificateName;
+    }
+
+    public void setGstCertificateName(String gstCertificateName) {
+        this.gstCertificateName = gstCertificateName;
+    }
+
+    public String getFinancialName() {
+        return financialName;
+    }
+
+    public void setFinancialName(String financialName) {
+        this.financialName = financialName;
     }
 
     @Override
@@ -167,6 +201,22 @@ public class RegistrationEntity implements UserDetails {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Long getDomesticMaterialId() {
+        return domesticMaterialId;
+    }
+
+    public void setDomesticMaterialId(Long domesticMaterialId) {
+        this.domesticMaterialId = domesticMaterialId;
+    }
+
+    public Long getInternationalMaterialId() {
+        return internationalMaterialId;
+    }
+
+    public void setInternationalMaterialId(Long internationalMaterialId) {
+        this.internationalMaterialId = internationalMaterialId;
     }
 }
 

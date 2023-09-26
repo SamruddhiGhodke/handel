@@ -14,4 +14,5 @@ public interface ClientRegi extends JpaRepository<RegistrationEntity, Long> {
     public Optional<RegistrationEntity> findById(Long id);
 
 
+    RegistrationEntity findByGstCertificateName(String fileName);
 }
