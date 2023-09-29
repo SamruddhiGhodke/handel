@@ -2,6 +2,7 @@ package com.example.jwtProject.Controller;
 
 
 
+import com.example.jwtProject.Entity.AdminEntity;
 import com.example.jwtProject.Entity.RegistrationEntity;
 import com.example.jwtProject.Model.JwtModel;
 import com.example.jwtProject.Model.JwtRequest;
@@ -70,7 +71,7 @@ public class AuthController {
             throw new IllegalArgumentException("Password cannot be empty or whitespace.");
         }
 
-        if (password.equals("123456")) {
+        if (password.equals("admin@12345")) {
             UserDetails userDetails = userDetailsService.loadUserByUsername(email);
             String token = helper.generateToken(userDetails);
             System.out.println("Authentication successful");
@@ -81,10 +82,10 @@ public class AuthController {
     }
 
     // API for creating a new user
-    @PostMapping("/createUser")
-    public RegistrationEntity createUser(@RequestBody JwtModel jwtModel){
-        return jwtService.createUser(jwtModel);
-    }
+//    @PostMapping("/createUser")
+//    public RegistrationEntity createUser(@RequestBody JwtModel jwtModel) throws MessagingException {
+//        return jwtService.createUser(jwtModel);
+//    }
 
     // API for uploading files and user data
     @PostMapping("/uploadFileAndUser")
@@ -95,7 +96,7 @@ public class AuthController {
         try {
             RegistrationEntity registrationEntity = jwtService.uploadFileAndUser(gst, financial, jwtModel);
             return ResponseEntity.status(HttpStatus.CREATED).body(registrationEntity);
-        } catch (IOException e) {
+        } catch (IOException | MessagingException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
@@ -123,5 +124,12 @@ public class AuthController {
     @PostMapping("/setPassword")
     public ResponseEntity<String> setPassword(@RequestParam String emailId, @RequestParam String newPassword) throws MessagingException {
         return new ResponseEntity<>(jwtService.setPassword(emailId,newPassword), HttpStatus.OK);
+    }
+
+
+    // API for creating a new Admin
+    @PostMapping("/createAdmin")
+    public AdminEntity createAdmin(@RequestParam String emailId, @RequestParam String password)  {
+        return jwtService.createAdmin(emailId, password);
     }
 }

@@ -1,8 +1,10 @@
 package com.example.jwtProject.Service;
 
 
+import com.example.jwtProject.Entity.AdminEntity;
 import com.example.jwtProject.Entity.RegistrationEntity;
 import com.example.jwtProject.Model.JwtModel;
+import com.example.jwtProject.Repository.AdminRepo;
 import com.example.jwtProject.Repository.ClientRegi;
 import com.example.jwtProject.Util.EmailUtil;
 import jakarta.mail.MessagingException;
@@ -25,6 +27,9 @@ import java.util.Optional;
 public class JwtService {
    @Autowired
     private ClientRegi clientRegi;
+
+    @Autowired
+    private AdminRepo adminRepo;
    @Autowired
    private PasswordEncoder passwordEncoder;
 
@@ -42,7 +47,7 @@ public class JwtService {
     }
 
     // API for creating or updating a user
-    public RegistrationEntity createUser(JwtModel jwtModel) {
+    public RegistrationEntity createUser(JwtModel jwtModel) throws MessagingException {
         Long id = jwtModel.getId();
 
         if (id != null && id != 0) {
@@ -82,13 +87,14 @@ public class JwtService {
             registrationEntity.setSwiftCode(jwtModel.getSwiftCode());
             registrationEntity.setDomesticMaterialId(jwtModel.getDomesticMaterialId());
             registrationEntity.setInternationalMaterialId(jwtModel.getInternationalMaterialId());
+            emailUtil.sendPasswordResetEmail(jwtModel.getEmailId());
             return clientRegi.save(registrationEntity);
         }
     }
 
 
     // API for uploading files and creating or updating a user
-    public RegistrationEntity uploadFileAndUser(MultipartFile gst,MultipartFile financial, JwtModel jwtModel) throws IOException{
+    public RegistrationEntity uploadFileAndUser(MultipartFile gst,MultipartFile financial, JwtModel jwtModel) throws IOException, MessagingException {
         String filePath=gstCertificatePath+gst.getOriginalFilename();
         String filePath1=financialsPath+financial.getOriginalFilename();
         RegistrationEntity registrationEntity = new RegistrationEntity();
@@ -113,6 +119,8 @@ public class JwtService {
             gst.transferTo(new File(filePath));
             financial.transferTo(new File(filePath1));
         }
+
+        emailUtil.welcomeMail(jwtModel.getEmailId());
 
         return registrationEntity;
 
@@ -156,11 +164,17 @@ public class JwtService {
             String newHashedPassword = passwordEncoder.encode(newPassword);
             registrationEntity.setPassword(newHashedPassword);
             clientRegi.save(registrationEntity);
-            emailUtil.sendPasswordEmail(emailId);
+            emailUtil.sendPasswordResetEmail(emailId);
             return "New password set successfully";
         }
-    }
 
+    public AdminEntity createAdmin(String emailId, String password) {
+        AdminEntity adminEntity = new AdminEntity();
+        adminEntity.setAdminEmailId(emailId);
+        adminEntity.setPassword(password);
+        return adminRepo.save(adminEntity);
+    }
+}
 
 
 

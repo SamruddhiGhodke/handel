@@ -9,7 +9,6 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
 
-import java.util.Optional;
 
 @Component
 public class EmailUtil {
@@ -48,4 +47,50 @@ public class EmailUtil {
         mimeMessageHelper.setText(emailBody, true);
         javaMailSender.send(mimeMessage);
     }
+
+    public void sendPasswordResetEmail(String emailId) throws MessagingException {
+        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+        RegistrationEntity registrationEntity = clientRegi.findByEmailId(emailId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        String entityName = registrationEntity.getEntityName();
+        MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage);
+        mimeMessageHelper.setTo(emailId);
+        mimeMessageHelper.setSubject("Password Reset Successfully!!");
+
+        String emailBody = String.format("Hi %s,<br><br>", entityName);
+        emailBody += "New password set successfully:<br>";
+//        emailBody += String.format("<a href=\"http://localhost:8097/setPassword?emailid=%s\" target=\"http://localhost:4200/resetpassword\">Click here to set your password</a>", emailId);
+        mimeMessageHelper.setText(emailBody, true);
+        javaMailSender.send(mimeMessage);
+    }
+
+
+    public void welcomeMail(String emailId) throws MessagingException {
+        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+        RegistrationEntity registrationEntity = clientRegi.findByEmailId(emailId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        String entityName = registrationEntity.getEntityName();
+        String userId = registrationEntity.getEmailId();
+
+        MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
+        mimeMessageHelper.setTo(emailId);
+        mimeMessageHelper.setSubject("Welcome to Handel Bidding Platform");
+
+        // Create the HTML content for the email body
+        String emailBody = "<html><body>";
+        emailBody += "<p>Hi " + entityName + ",</p>";
+        emailBody += "<p>We are delighted to welcome you to the Handel Bidding Platform! Your successful registration marks the beginning of an exciting journey towards new business opportunities and collaborations.</p>";
+        emailBody += "<p>Your login credentials are as follows:</p>";
+        emailBody += "<p>User ID: " + userId + "</p>";
+        emailBody += "<p>Password: 123456</p>";
+        emailBody += "<br><p>Best regards,</p>";
+        emailBody += "<p>Handel</p>";
+        emailBody += "</body></html>";
+
+        mimeMessageHelper.setText(emailBody, true);
+        javaMailSender.send(mimeMessage);
+    }
+
 }
