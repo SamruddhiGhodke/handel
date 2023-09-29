@@ -110,7 +110,7 @@ public class JwtService {
         registrationEntity.setFinancialName(financial.getOriginalFilename());
         registrationEntity.setGstCertificates(filePath);
         registrationEntity.setFinancialCertificates(filePath1);
-        registrationEntity.setPassword(passwordEncoder.encode(jwtModel.getPassword()));
+//        registrationEntity.setPassword(passwordEncoder.encode(jwtModel.getPassword()));
 
 //        registrationEntity.setInternationalMaterialId(jwtModel.getInternationalMaterialId());
 //        registrationEntity.setDomesticMaterialId(jwtModel.getDomesticMaterialId());
